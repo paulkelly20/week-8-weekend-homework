@@ -7,9 +7,17 @@
     <session-factory>
         <property name="hbm2ddl.auto">create</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.url">jdbc:postgresql://localhost/</property>
+        <property name="connection.url">jdbc:postgresql://localhost/competitiondb</property>
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
         <property name="connection.pool_size">1</property>
         <property name="show_sql">true</property>
+        <mapping class="models.Player"/>
+        <mapping class="models.Manager"/>
+        <mapping class="models.Competition"/>
+        <mapping class="models.Employee"/>
+        <mapping class="models.League"/>
+        <mapping class="models.Match"/>
+        <mapping class="models.StraightKnockout"/>
+        <mapping class="models.Team"/>
     </session-factory>
 </hibernate-configuration>

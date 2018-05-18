@@ -4,25 +4,25 @@ import javax.persistence.*;
 import java.util.Calendar;
 
 @Entity
-@Table(name = "employees")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Employee {
     private int id;
     private String name;
     private int age;
     private double salary;
     private Calendar contractEndDate;
-    private Team team;
+
 
 
     public Employee() {
     }
 
-    public Employee(String name, int age, double salary, Calendar contractEndDate, Team team) {
+    public Employee(String name, int age, double salary, Calendar contractEndDate) {
         this.name = name;
         this.age = age;
         this.salary = salary;
         this.contractEndDate = contractEndDate;
-        this.team = team;
+
     }
 
     @Id
@@ -74,12 +74,4 @@ public abstract class Employee {
     }
 
 
-    public Team getTeam() {
-        return team;
-    }
-
-
-    public void setTeam(Team team) {
-        this.team = team;
-    }
 }

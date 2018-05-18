@@ -3,15 +3,25 @@ package models;
 import javax.persistence.*;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Table(name = "matches")
 public class Match {
+
+
     private int id;
     private Competition competition;
     private List<Team> teams;
     private boolean knockoutMatch;
 
     public Match() {
+    }
+
+    public Match(Competition competition, List<Team> teams, boolean knockoutMatch) {
+        this.competition = competition;
+        this.teams = teams;
+        this.knockoutMatch = knockoutMatch;
     }
 
     @Id
@@ -25,8 +35,8 @@ public class Match {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "competition_id", nullable = false)
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "competition_id")
     public Competition getCompetition() {
         return competition;
     }
@@ -36,11 +46,7 @@ public class Match {
     }
 
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "teams_in_match",
-            joinColumns = {@JoinColumn(name = "match_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)}
-    )
+    @ManyToMany(mappedBy = "matches")
     public List<Team> getTeams() {
         return teams;
     }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "competitions")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Competition {
     private int id;
     private String name;
@@ -15,7 +15,7 @@ public abstract class Competition {
     public Competition() {
     }
 
-    public Competition(String name, int prizeMoney, ArrayList<Match> matches) {
+    public Competition(String name, int prizeMoney, List<Match> matches) {
         this.name = name;
         this.prizeMoney = prizeMoney;
         this.matches = matches;
@@ -50,6 +50,7 @@ public abstract class Competition {
         this.prizeMoney = prizeMoney;
     }
 
+    @OneToMany(mappedBy = "competition")
     public List<Match> getMatches() {
         return matches;
     }

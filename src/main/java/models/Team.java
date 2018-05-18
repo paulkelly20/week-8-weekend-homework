@@ -42,7 +42,7 @@ public class Team {
         this.name = name;
     }
 
-    @OneToOne(mappedBy = "team", cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "team" ,fetch = FetchType.LAZY)
     public Manager getManager() {
         return manager;
     }
@@ -60,7 +60,7 @@ public class Team {
         this.players = players;
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "teams_in_match",
             joinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "match_id", nullable = false, updatable = false)}

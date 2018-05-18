@@ -1,27 +1,29 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Calendar;
 
+@Entity
+@Table(name = "players")
 public class Player extends Employee {
+    Team team;
 
     public Player() {
     }
 
     public Player(String name, int age, double salary, Calendar contractEndDate, Team team) {
-        super(name, age, salary, contractEndDate, team);
+        super(name, age, salary, contractEndDate);
+        this.team = team;
     }
 
-    @ManyToOne
-    @JoinColumn(name ="team_id", nullable = false)
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name ="team_id")
     public Team getTeam() {
-        return super.getTeam();
+        return this.team;
     }
 
 
     public void setTeam(Team team) {
-        super.setTeam(team);
+        this.team = team;
     }
 }

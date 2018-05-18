@@ -1,27 +1,34 @@
 package models;
 
-import javax.persistence.Column;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
 import java.util.Calendar;
 
+
+@Entity
+@Table(name = "managers")
 public class Manager extends Employee {
+    Team team;
+
+
 
     public Manager() {
     }
 
     public Manager(String name, int age, double salary, Calendar contractEndDate, Team team) {
-        super(name, age, salary, contractEndDate, team);
+        super(name, age, salary, contractEndDate);
+        this.team = team;
     }
 
-    @OneToOne
+
+
+    @OneToOne()
     @PrimaryKeyJoinColumn
     public Team getTeam() {
-        return super.getTeam();
+        return this.team;
     }
 
 
     public void setTeam(Team team) {
-        super.setTeam(team);
+        this.team = team;
     }
 }
