@@ -79,5 +79,6 @@ public class Runner {
         List<Team> foundTeamsInAMatch = DBMatch.findTeamsInMatch(match);
 
         Match foundMatch = DBHelper.find(Match.class, match.getId());
+        List<Team> teamsInComp = DBCompetition.teamsInCompetition(league);
     }
 }
