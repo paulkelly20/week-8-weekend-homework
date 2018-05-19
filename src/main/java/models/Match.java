@@ -1,7 +1,7 @@
 package models;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.*;
 
 import static javax.persistence.CascadeType.*;
 
@@ -18,10 +18,10 @@ public class Match {
     public Match() {
     }
 
-    public Match(Competition competition, List<Team> teams, boolean knockoutMatch) {
+    public Match(Competition competition,  boolean knockoutMatch) {
         this.competition = competition;
-        this.teams = teams;
         this.knockoutMatch = knockoutMatch;
+        this.teams = new ArrayList<Team>();
     }
 
     @Id
@@ -36,7 +36,7 @@ public class Match {
     }
 
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "competition_id")
+    @JoinColumn(name = "competition_id", nullable = true)
     public Competition getCompetition() {
         return competition;
     }
@@ -46,7 +46,7 @@ public class Match {
     }
 
 
-    @ManyToMany(mappedBy = "matches")
+    @ManyToMany(mappedBy = "matches", cascade = CascadeType.PERSIST)
     public List<Team> getTeams() {
         return teams;
     }
@@ -63,4 +63,18 @@ public class Match {
     public void setKnockoutMatch(boolean knockoutMatch) {
         this.knockoutMatch = knockoutMatch;
     }
+
+    public void addTeamToMatch(Team team){
+        if (teams.size() < 2){
+            this.teams.add(team);
+        }
+    }
+
+//    public void match(){
+//        Team team1 = this.teams.get(0);
+//        Team team2 = this.teams.get(1);
+//
+//    }
+
+
 }

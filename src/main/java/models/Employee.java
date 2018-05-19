@@ -17,11 +17,10 @@ public abstract class Employee {
     public Employee() {
     }
 
-    public Employee(String name, int age, double salary, Calendar contractEndDate) {
+    public Employee(String name, int age) {
         this.name = name;
         this.age = age;
-        this.salary = salary;
-        this.contractEndDate = contractEndDate;
+
 
     }
 

@@ -15,10 +15,10 @@ public abstract class Competition {
     public Competition() {
     }
 
-    public Competition(String name, int prizeMoney, List<Match> matches) {
+    public Competition(String name, int prizeMoney) {
         this.name = name;
         this.prizeMoney = prizeMoney;
-        this.matches = matches;
+
     }
 
     @Id

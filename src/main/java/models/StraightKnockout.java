@@ -13,8 +13,8 @@ public class StraightKnockout extends Competition {
     public StraightKnockout() {
     }
 
-    public StraightKnockout(String name, int prizeMoney, List<Match> matches) {
-        super(name, prizeMoney, matches);
+    public StraightKnockout(String name, int prizeMoney) {
+        super(name, prizeMoney);
     }
 
 

@@ -14,9 +14,9 @@ public class Manager extends Employee {
     public Manager() {
     }
 
-    public Manager(String name, int age, double salary, Calendar contractEndDate, Team team) {
-        super(name, age, salary, contractEndDate);
-        this.team = team;
+    public Manager(String name, int age) {
+        super(name, age);
+
     }
 
 

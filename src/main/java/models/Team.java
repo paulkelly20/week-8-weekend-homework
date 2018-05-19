@@ -1,6 +1,8 @@
 package models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
@@ -12,11 +14,11 @@ public class Team {
     private List<Player> players;
     private List<Match> matches;
 
-    public Team(String name, Manager manager, List<Player> players, List<Match> matches) {
+    public Team(String name) {
         this.name = name;
-        this.manager = manager;
-        this.players = players;
-        this.matches = matches;
+        this.matches = new ArrayList<Match>();
+        this.players = new ArrayList<Player>();
+
     }
 
     public Team() {
@@ -51,6 +53,7 @@ public class Team {
         this.manager = manager;
     }
 
+
     @OneToMany(mappedBy = "team")
     public List<Player> getPlayers() {
         return players;
@@ -59,6 +62,7 @@ public class Team {
     public void setPlayers(List<Player> players) {
         this.players = players;
     }
+
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "teams_in_match",
@@ -71,5 +75,22 @@ public class Team {
 
     public void setMatches(List<Match> matches) {
         this.matches = matches;
+    }
+
+    public void newMatchForTeam(Match match){
+        this.matches.add(match);
+    }
+
+    public void addPlayerToTeam(Player player, Calendar contractExpires, double newSalary){
+        this.players.add(player);
+        player.setContractEndDate(contractExpires);
+        player.setSalary(newSalary);
+    }
+
+    public void hireManager(Manager manager, Calendar contractExpires, double newSalary){
+        this.setManager(manager);
+        manager.setContractEndDate(contractExpires);
+        manager.setSalary(newSalary);
+
     }
 }

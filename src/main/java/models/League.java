@@ -13,7 +13,7 @@ public class League extends Competition {
     public League() {
     }
 
-    public League(String name, int prizeMoney, List<Match> matches) {
-        super(name, prizeMoney, matches);
+    public League(String name, int prizeMoney) {
+        super(name, prizeMoney);
     }
 }

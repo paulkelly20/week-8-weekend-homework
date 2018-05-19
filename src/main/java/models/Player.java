@@ -11,9 +11,9 @@ public class Player extends Employee {
     public Player() {
     }
 
-    public Player(String name, int age, double salary, Calendar contractEndDate, Team team) {
-        super(name, age, salary, contractEndDate);
-        this.team = team;
+    public Player(String name, int age) {
+        super(name, age);
+
     }
 
     @ManyToOne(cascade=CascadeType.ALL)
