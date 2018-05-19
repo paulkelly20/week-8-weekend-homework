@@ -64,7 +64,7 @@ public class Team {
     }
 
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "teams_in_match",
             joinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "match_id", nullable = false, updatable = false)}

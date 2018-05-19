@@ -16,4 +16,9 @@ public class League extends Competition {
     public League(String name, int prizeMoney) {
         super(name, prizeMoney);
     }
+
+    public void addMatchToCompetition(Match match) {
+        if(!match.isKnockoutMatch())
+        { super.getMatches().add(match);}
+    }
 }

@@ -18,6 +18,7 @@ public abstract class Competition {
     public Competition(String name, int prizeMoney) {
         this.name = name;
         this.prizeMoney = prizeMoney;
+        this.matches = new ArrayList<Match>();
 
     }
 
@@ -58,4 +59,6 @@ public abstract class Competition {
     public void setMatches(List<Match> matches) {
         this.matches = matches;
     }
+
+    public abstract void addMatchToCompetition(Match match);
 }

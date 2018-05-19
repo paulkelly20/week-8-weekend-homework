@@ -16,7 +16,7 @@ public class Player extends Employee {
 
     }
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name ="team_id")
     public Team getTeam() {
         return this.team;

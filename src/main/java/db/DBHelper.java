@@ -1,5 +1,7 @@
 package db;
 
+import models.Match;
+import models.Team;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -88,4 +90,12 @@ public class DBHelper {
         }
         return result;
     }
+
+
+    public static void addTeamToMatch(Team team, Match match){
+        team.newMatchForTeam(match);
+        match.addTeamToMatch(team);
+        save(match);
+    }
+
 }

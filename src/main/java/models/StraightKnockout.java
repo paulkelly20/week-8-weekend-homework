@@ -17,7 +17,10 @@ public class StraightKnockout extends Competition {
         super(name, prizeMoney);
     }
 
-
+    public void addMatchToCompetition(Match match) {
+        if(match.isKnockoutMatch())
+        { super.getMatches().add(match);}
+    }
 
 
 }

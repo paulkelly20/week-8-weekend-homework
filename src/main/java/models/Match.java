@@ -46,7 +46,12 @@ public class Match {
     }
 
 
-    @ManyToMany(mappedBy = "matches", cascade = CascadeType.PERSIST)
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "teams_in_match",
+            inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)},
+            joinColumns = {@JoinColumn(name = "match_id", nullable = false, updatable = false)}
+    )
     public List<Team> getTeams() {
         return teams;
     }
@@ -69,6 +74,8 @@ public class Match {
             this.teams.add(team);
         }
     }
+
+
 
 //    public void match(){
 //        Team team1 = this.teams.get(0);
