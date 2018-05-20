@@ -76,8 +76,8 @@ public class Runner {
 
 
         //play games
-        Match.PlayLeagueMatch(match, 2, 1);
-        Match.PlayLeagueMatch(match2, 2, 1);
+        Match.PlayLeagueMatch(match, 2, 3);
+        Match.PlayLeagueMatch(match2, 1, 1);
 
 
         // results
@@ -98,6 +98,7 @@ public class Runner {
 
         List<Team> foundTeamsInCompetition = DBCompetition.findTeamsInCompetition(league);
 
+        int teamsPoints = team.getPointsTotal(league);
 
 
     }

@@ -1,6 +1,7 @@
 package models;
 
 import db.DBHelper;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.util.*;
@@ -30,7 +31,7 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -48,7 +49,14 @@ public class Team {
         this.name = name;
     }
 
-    @OneToOne(mappedBy = "team" ,fetch = FetchType.LAZY)
+    @Column(name = "points_total")
+    public int getPointsTotal(Competition competition) {
+
+        return this.competitionPoints.get(competition);
+
+    }
+
+    @OneToOne(mappedBy = "team", fetch = FetchType.LAZY)
     public Manager getManager() {
         return manager;
     }
@@ -86,22 +94,27 @@ public class Team {
         this.competitions = competitions;
     }
 
-    public void newMatchForTeam(Match match){
+    public void teamAddsCompetition(Competition competition){
+        this.competitions.add(competition);
+    }
+
+    public void newMatchForTeam(Match match) {
         this.matches.add(match);
     }
 
-    public void addPlayerToTeam(Player player, Calendar contractExpires, double newSalary){
+    public void addPlayerToTeam(Player player, Calendar contractExpires, double newSalary) {
         this.players.add(player);
         player.setContractEndDate(contractExpires);
         player.setSalary(newSalary);
     }
 
-    public void hireManager(Manager manager, Calendar contractExpires, double newSalary){
+    public void hireManager(Manager manager, Calendar contractExpires, double newSalary) {
         this.setManager(manager);
         manager.setContractEndDate(contractExpires);
         manager.setSalary(newSalary);
 
     }
+
 
     @ElementCollection
     @MapKeyColumn(name = "competition_points")
@@ -114,13 +127,18 @@ public class Team {
         this.competitionPoints = competitionPoints;
     }
 
-    public void startCompetition(Competition competition){
+    public void startCompetition(Competition competition) {
         this.competitionPoints.put(competition, 0);
     }
 
-    public void updatePoints(Competition competition, Integer points){
+    public void updatePoints(Competition competition, Integer points) {
         this.competitionPoints.put(competition, competitionPoints.get(competition) + points);
         DBHelper.save(this);
     }
+
+
+
 }
+
+
 

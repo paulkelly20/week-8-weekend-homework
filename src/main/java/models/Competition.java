@@ -66,11 +66,12 @@ public abstract class Competition {
 
     public abstract void addMatchToCompetition(Match match);
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "teams_in_competition",
             joinColumns = {@JoinColumn(name = "competition_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)}
     )
+    @OrderColumn(name="")
     public List<Team> getTeams() {
         return teams;
     }

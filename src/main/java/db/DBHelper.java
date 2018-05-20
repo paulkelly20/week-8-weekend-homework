@@ -96,6 +96,7 @@ public class DBHelper {
         team.newMatchForTeam(match);
         match.addTeamToMatch(team);
         match.getCompetition().addTeamToComp(team);
+        team.teamAddsCompetition(match.getCompetition());
         team.startCompetition(match.getCompetition());
         save(match);
         save(match.getCompetition());
