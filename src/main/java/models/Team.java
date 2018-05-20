@@ -13,11 +13,13 @@ public class Team {
     private Manager manager;
     private List<Player> players;
     private List<Match> matches;
+    private List<Competition> competitions;
 
     public Team(String name) {
         this.name = name;
         this.matches = new ArrayList<Match>();
         this.players = new ArrayList<Player>();
+        this.competitions = new ArrayList<Competition>();
 
     }
 
@@ -64,17 +66,26 @@ public class Team {
     }
 
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "teams_in_match",
-            joinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "match_id", nullable = false, updatable = false)}
-    )
+    @ManyToMany(mappedBy = "teams")
+//    @JoinTable(name = "teams_in_match",
+//            joinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)},
+//            inverseJoinColumns = {@JoinColumn(name = "match_id", nullable = false, updatable = false)}
+//    )
     public List<Match> getMatches() {
         return matches;
     }
 
     public void setMatches(List<Match> matches) {
         this.matches = matches;
+    }
+
+    @ManyToMany(mappedBy = "teams")
+    public List<Competition> getCompetitions() {
+        return competitions;
+    }
+
+    public void setCompetitions(List<Competition> competitions) {
+        this.competitions = competitions;
     }
 
     public void newMatchForTeam(Match match){

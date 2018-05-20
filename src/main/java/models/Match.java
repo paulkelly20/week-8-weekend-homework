@@ -35,8 +35,8 @@ public class Match {
         this.id = id;
     }
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "competition_id", nullable = true)
+    @ManyToOne
+    @JoinColumn(name = "competition_id", nullable = false)
     public Competition getCompetition() {
         return competition;
     }
@@ -77,11 +77,10 @@ public class Match {
 
 
 
-//    public void match(){
-//        Team team1 = this.teams.get(0);
-//        Team team2 = this.teams.get(1);
-//
-//    }
+    public void match(int homeScore, int awayScore){
+
+
+    }
 
 
 }

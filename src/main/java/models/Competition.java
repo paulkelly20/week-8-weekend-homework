@@ -1,5 +1,7 @@
 package models;
 
+import db.DBCompetition;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ public abstract class Competition {
     private String name;
     private int prizeMoney;
     private List<Match> matches;
+    private List<Team> teams;
 
     public Competition() {
     }
@@ -19,12 +22,13 @@ public abstract class Competition {
         this.name = name;
         this.prizeMoney = prizeMoney;
         this.matches = new ArrayList<Match>();
+        this.teams = new ArrayList<Team>();
 
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -61,4 +65,28 @@ public abstract class Competition {
     }
 
     public abstract void addMatchToCompetition(Match match);
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "teams_in_competition",
+            joinColumns = {@JoinColumn(name = "competition_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)}
+    )
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
+    }
+
+    public void addTeamToComp(Team team){
+        if(!this.teams.contains(team)){
+            this.teams.add(team);
+        }
+    }
+
+//    public void givePointsToTeam(Team team){
+//        team.
+//    }
 }
+

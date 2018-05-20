@@ -21,4 +21,6 @@ public class League extends Competition {
         if(!match.isKnockoutMatch())
         { super.getMatches().add(match);}
     }
+
+
 }

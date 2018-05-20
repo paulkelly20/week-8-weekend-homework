@@ -18,19 +18,6 @@ public class DBCompetition {
     private static Session session;
 
 
-    public static List<Team> teamsInCompetition(Competition competition){
-        List<Team> teamsInComp = new ArrayList<Team>();
-        List<Team> duplicateChecckedArray = new ArrayList<Team>();
-        List<Match> matchesInComp = matchesInCompetition(competition);
-            for(Match match: matchesInComp){
-                duplicateChecckedArray.addAll(DBMatch.findTeamsInMatch(match));
-            } for (Team team: duplicateChecckedArray){
-                if(!teamsInComp.contains(team)){
-                    teamsInComp.add(team);
-                }
-        }
-        return teamsInComp;
-    }
 
 
         public static List<Match> matchesInCompetition(Competition competition){
@@ -49,4 +36,20 @@ public class DBCompetition {
                 } return matchesInComp;
             }
 
+
+
+    public static List<Team> findTeamsInCompetition(Competition competition){
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Team> foundTeams = null;
+        try{
+            Criteria cr = session.createCriteria(Team.class);
+            cr.createAlias("competitions", "competition");
+            cr.add(Restrictions.eq("competition.id", competition.getId()));
+            foundTeams = cr.list();
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }finally {
+            session.close();
+        } return foundTeams;
+    }
 }

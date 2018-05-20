@@ -95,7 +95,9 @@ public class DBHelper {
     public static void addTeamToMatch(Team team, Match match){
         team.newMatchForTeam(match);
         match.addTeamToMatch(team);
+        match.getCompetition().addTeamToComp(team);
         save(match);
+        save(match.getCompetition());
     }
 
 }

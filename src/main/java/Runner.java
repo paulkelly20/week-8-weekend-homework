@@ -20,6 +20,8 @@ public class Runner {
 
         Team team2 = new Team("Celtic");
 
+        Team team3 = new Team("Hearts");
+
         League league = new League("Premier League", 20000);
 
 
@@ -33,6 +35,8 @@ public class Runner {
         Manager manager2 = new Manager("Jose", 77);
 
         Match match = new Match(league, false);
+
+        Match match2 = new Match(league, false);
 
 
         //Class methods to setup teams and matches
@@ -48,13 +52,16 @@ public class Runner {
         team.hireManager(manager, contractEndDate, 7500000);
         team2.hireManager(manager2, contractEndDate, 10000000);
         league.addMatchToCompetition(match);
+        league.addMatchToCompetition(match2);
 
 
         // save to db
+        DBHelper.save(league);
         DBHelper.save(manager);
         DBHelper.save(manager2);
         DBHelper.save(team);
         DBHelper.save(team2);
+        DBHelper.save(team3);
         DBHelper.save(match);
         DBHelper.save(player1);
         DBHelper.save(player2);
@@ -63,6 +70,9 @@ public class Runner {
         DBHelper.save(league);
         DBHelper.addTeamToMatch(team, match);
         DBHelper.addTeamToMatch(team2, match);
+        DBHelper.addTeamToMatch(team, match2);
+        DBHelper.addTeamToMatch(team3, match2);
+
 
 
 
@@ -77,8 +87,13 @@ public class Runner {
         List<Player> playersInTeam = DBTeam.findPlayersInTeam(team);
         List<Match> foundMatchesInACompetition = DBCompetition.matchesInCompetition(league);
         List<Team> foundTeamsInAMatch = DBMatch.findTeamsInMatch(match);
+        List<Team> foundTeamsInSecondMatch = DBMatch.findTeamsInMatch(match2);
 
         Match foundMatch = DBHelper.find(Match.class, match.getId());
-        List<Team> teamsInComp = DBCompetition.teamsInCompetition(league);
+        Match secondFoundMatch = DBHelper.find(Match.class, match2.getId());
+
+        List<Team> foundTeamsInCompetition = DBCompetition.findTeamsInCompetition(league);
+
+
     }
 }
