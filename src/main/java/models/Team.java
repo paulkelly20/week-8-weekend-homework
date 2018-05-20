@@ -1,9 +1,9 @@
 package models;
 
+import db.DBHelper;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "teams")
@@ -14,12 +14,14 @@ public class Team {
     private List<Player> players;
     private List<Match> matches;
     private List<Competition> competitions;
+    private Map<Competition, Integer> competitionPoints;
 
     public Team(String name) {
         this.name = name;
         this.matches = new ArrayList<Match>();
         this.players = new ArrayList<Player>();
         this.competitions = new ArrayList<Competition>();
+        this.competitionPoints = new HashMap<Competition, Integer>();
 
     }
 
@@ -67,10 +69,6 @@ public class Team {
 
 
     @ManyToMany(mappedBy = "teams")
-//    @JoinTable(name = "teams_in_match",
-//            joinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)},
-//            inverseJoinColumns = {@JoinColumn(name = "match_id", nullable = false, updatable = false)}
-//    )
     public List<Match> getMatches() {
         return matches;
     }
@@ -104,4 +102,25 @@ public class Team {
         manager.setSalary(newSalary);
 
     }
+
+    @ElementCollection
+    @MapKeyColumn(name = "competition_points")
+    @Column(name = "competition_points")
+    public Map<Competition, Integer> getCompetitionPoints() {
+        return competitionPoints;
+    }
+
+    public void setCompetitionPoints(Map<Competition, Integer> competitionPoints) {
+        this.competitionPoints = competitionPoints;
+    }
+
+    public void startCompetition(Competition competition){
+        this.competitionPoints.put(competition, 0);
+    }
+
+    public void updatePoints(Competition competition, Integer points){
+        this.competitionPoints.put(competition, competitionPoints.get(competition) + points);
+        DBHelper.save(this);
+    }
 }
+

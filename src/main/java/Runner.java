@@ -55,6 +55,7 @@ public class Runner {
         league.addMatchToCompetition(match2);
 
 
+
         // save to db
         DBHelper.save(league);
         DBHelper.save(manager);
@@ -74,9 +75,12 @@ public class Runner {
         DBHelper.addTeamToMatch(team3, match2);
 
 
+        //play games
+        Match.PlayLeagueMatch(match, 2, 1);
+        Match.PlayLeagueMatch(match2, 2, 1);
 
 
-
+        // results
         Team foundTeam = DBHelper.find(Team.class, team.getId());
         Team secondFoundTeam = DBHelper.find(Team.class, team2.getId());
         Manager foundManager = DBHelper.find(Manager.class, manager.getId());
@@ -93,6 +97,7 @@ public class Runner {
         Match secondFoundMatch = DBHelper.find(Match.class, match2.getId());
 
         List<Team> foundTeamsInCompetition = DBCompetition.findTeamsInCompetition(league);
+
 
 
     }

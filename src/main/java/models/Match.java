@@ -1,5 +1,7 @@
 package models;
 
+import db.DBHelper;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -77,9 +79,17 @@ public class Match {
 
 
 
-    public void match(int homeScore, int awayScore){
-
-
+    public  static void PlayLeagueMatch( Match match, int homeScore, int AwayScore){
+        if(!match.isKnockoutMatch()){
+           Team homeTeam = match.teams.get(0);
+           Team awayTeam = match.teams.get(1);
+         if(homeScore > AwayScore){homeTeam.updatePoints(match.getCompetition(), 3); }
+         if(homeScore < AwayScore){awayTeam.updatePoints(match.getCompetition(), 3);}
+         if (homeScore == AwayScore)
+            {awayTeam.updatePoints(match.getCompetition(), 1);
+              homeTeam.updatePoints(match.getCompetition(), 1);}
+    }
+        DBHelper.save(match);
     }
 
 

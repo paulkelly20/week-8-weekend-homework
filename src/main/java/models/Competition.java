@@ -85,8 +85,6 @@ public abstract class Competition {
         }
     }
 
-//    public void givePointsToTeam(Team team){
-//        team.
-//    }
+
 }
 
