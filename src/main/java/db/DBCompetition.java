@@ -43,7 +43,6 @@ public class DBCompetition {
         List<Team> foundTeams = null;
         try{
             Criteria cr = session.createCriteria(Team.class, "team");
-
             cr.createAlias("competitions", "competition");
             cr.add(Restrictions.eq("competition.id", competition.getId()));
 
@@ -56,15 +55,5 @@ public class DBCompetition {
     }
 
 
-    public static List<Team> sortTeamsByMostPoints(Competition league) {
-            List<Team> sortingArray = new ArrayList<Team>();
-            List<Team> sortedTeams = new ArrayList<Team>();
-            sortingArray.addAll(findTeamsInCompetition(league));
-            for ( Team team : sortingArray){if (sortedTeams.size() == 0) {sortedTeams.add(0, team);
-                if (team.getPointsTotal(league) >= sortedTeams.get(0).getPointsTotal(league)) {
-                sortedTeams.add(0, team);}
-                if (team.getPointsTotal(league) < sortedTeams.get(0).getPointsTotal(league)){sortedTeams.add(1, team);}
-                }
-            }return sortedTeams;
-    }
+
 }

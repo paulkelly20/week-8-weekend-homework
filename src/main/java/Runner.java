@@ -98,6 +98,8 @@ public class Runner {
 
         List<Team> foundTeamsInCompetition = DBCompetition.findTeamsInCompetition(league);
 
+//        List<Team> sortedTeamsInCompetition = DBCompetition.sortTeamsByMostPoints(league);
+
         int teamsPoints = team.getPointsTotal(league);
 
 

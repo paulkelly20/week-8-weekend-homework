@@ -1,6 +1,10 @@
 package models;
 
 import db.DBCompetition;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -71,7 +75,6 @@ public abstract class Competition {
             joinColumns = {@JoinColumn(name = "competition_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)}
     )
-    @OrderColumn(name="")
     public List<Team> getTeams() {
         return teams;
     }

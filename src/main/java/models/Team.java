@@ -1,6 +1,8 @@
 package models;
 
 import db.DBHelper;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
@@ -77,6 +79,8 @@ public class Team {
 
 
     @ManyToMany(mappedBy = "teams")
+    @Fetch(FetchMode.SELECT)
+
     public List<Match> getMatches() {
         return matches;
     }
@@ -115,9 +119,8 @@ public class Team {
 
     }
 
-
     @ElementCollection
-    @MapKeyColumn(name = "competition_points")
+    @MapKeyJoinColumn(name = "competition_id")
     @Column(name = "competition_points")
     public Map<Competition, Integer> getCompetitionPoints() {
         return competitionPoints;

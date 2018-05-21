@@ -1,6 +1,8 @@
 package models;
 
 import db.DBHelper;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.*;
@@ -54,6 +56,8 @@ public class Match {
             inverseJoinColumns = {@JoinColumn(name = "team_id", nullable = false, updatable = false)},
             joinColumns = {@JoinColumn(name = "match_id", nullable = false, updatable = false)}
     )
+    @Fetch(FetchMode.SELECT)
+
     public List<Team> getTeams() {
         return teams;
     }
